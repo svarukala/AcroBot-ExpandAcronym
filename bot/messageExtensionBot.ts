@@ -40,11 +40,13 @@ export class MessageExtensionBot extends TeamsActivityHandler {
         existingResults.push(obj.definition);
         const heroCard = CardFactory.heroCard(obj.term);
         const preview = CardFactory.heroCard(obj.definition, obj.categoryname);
+        //handle on tap or select of an item in there results. This invokes handleTeamsMessagingextensionSelectItem function
+        //Passes the value as input to the function
         preview.content.tap = {
           type: "invoke",
           value: { name: obj.definition, description: obj.term +" | Category: "+ obj.categoryname },
         };
-        const attachment = { ...heroCard, preview };
+        const attachment = {...heroCard, preview };
         attachments.push(attachment);
       }
     });    
@@ -65,7 +67,7 @@ export class MessageExtensionBot extends TeamsActivityHandler {
       composeExtension: {
         type: "result",
         attachmentLayout: "list",
-        attachments: [CardFactory.heroCard(obj.name, obj.description)],
+        attachments: [CardFactory.heroCard(obj.name, obj.description)]
       },
     };
   }
